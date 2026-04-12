@@ -1,0 +1,20 @@
+2026-04-12 06:31:40 | INFO     | main | ============================================================
+2026-04-12 06:31:40 | INFO     | main | weather-pipeline  START
+2026-04-12 06:31:40 | INFO     | main | ============================================================
+2026-04-12 06:31:40 | INFO     | main | [1/3] EXTRACT — fetching from Open-Meteo API
+2026-04-12 06:31:40 | INFO     | src.extract | Fetching weather data for Delhi (28.6139, 77.209)
+2026-04-12 06:31:42 | INFO     | src.extract | API response received — status 200
+2026-04-12 06:31:42 | DEBUG    | src.extract | Raw API units: {'time': 'iso8601', 'temperature_2m': '°C', 'relative_humidity_2m': '%', 'precipitation_probability': '%', 'windspeed_10m': 'km/h', 'weathercode': 'wmo code'}
+2026-04-12 06:31:42 | INFO     | main | [2/3] TRANSFORM — cleaning and validating
+2026-04-12 06:31:42 | INFO     | src.transform | Parsed raw data — 168 rows, 6 columns
+2026-04-12 06:31:42 | DEBUG    | src.transform | Parsed 'time' column to datetime
+2026-04-12 06:31:42 | INFO     | src.transform | Clean complete — 168 rows, 7 days
+2026-04-12 06:31:42 | INFO     | src.transform | Validation passed — 168 rows, 0 total nulls
+2026-04-12 06:31:42 | INFO     | main | [3/3] LOAD — writing outputs
+2026-04-12 06:31:42 | INFO     | src.load | CSV saved → data\weather_delhi_2026-04-12.csv  (168 rows)
+2026-04-12 06:31:42 | INFO     | src.load | SQLite saved → data\weather.db  (total rows in DB: 168)
+2026-04-12 06:31:42 | INFO     | main | ============================================================
+2026-04-12 06:31:42 | INFO     | main | Pipeline completed successfully
+2026-04-12 06:31:42 | INFO     | main |   CSV  → data\weather_delhi_2026-04-12.csv
+2026-04-12 06:31:42 | INFO     | main |   DB   → data\weather.db
+2026-04-12 06:31:42 | INFO     | main | ============================================================

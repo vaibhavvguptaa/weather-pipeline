@@ -1,0 +1,25 @@
+# Virtual environment
+venv/
+
+# Environment secrets
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Data outputs (optional — remove if you want to commit sample data)
+data/
+
+# SQLite DB
+*.db
+*.sqlite
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
