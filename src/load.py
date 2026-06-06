@@ -54,23 +54,29 @@ def save_sqlite(df: pd.DataFrame) -> Path:
         df_load["time"] = df_load["time"].astype(str)
         df_load["date"] = df_load["date"].astype(str)
 
+        # Load into a temporary staging table to support idempotent upserts
         df_load.to_sql(
-            "weather_forecast",
+            "temp_weather_forecast",
             conn,
-            if_exists="append",
+            if_exists="replace",
             index=False,
             method="multi",
         )
 
-        # Handle duplicates — SQLite INSERT OR REPLACE via raw SQL
+        # Upsert from staging table into the primary table
         conn.execute("""
-            DELETE FROM weather_forecast
-            WHERE rowid NOT IN (
-                SELECT MIN(rowid)
-                FROM weather_forecast
-                GROUP BY time, city
+            INSERT OR REPLACE INTO weather_forecast (
+                time, city, temperature_2m, relative_humidity_2m,
+                precipitation_probability, windspeed_10m, weathercode, date, hour
             )
+            SELECT 
+                time, city, temperature_2m, relative_humidity_2m,
+                precipitation_probability, windspeed_10m, weathercode, date, hour
+            FROM temp_weather_forecast
         """)
+
+        # Clean up staging table
+        conn.execute("DROP TABLE temp_weather_forecast")
         conn.commit()
 
         count = conn.execute(
