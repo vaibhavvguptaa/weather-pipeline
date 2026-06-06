@@ -10,8 +10,7 @@ __pycache__/
 *.pyo
 *.pyd
 
-# Data outputs (optional — remove if you want to commit sample data)
-data/
+# Data outputs (allowed CSV files; database files remain ignored below)
 
 # SQLite DB
 *.db
